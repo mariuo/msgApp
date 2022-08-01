@@ -2,8 +2,8 @@ package com.mcamelo.msgApp.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
-
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_user")
@@ -18,7 +18,7 @@ public class User implements Serializable {
     private String imageUrlProfile;
 
     @OneToMany(mappedBy = "userTo")
-    private List<Notification> notifications = new ArrayList<>();
+    private List<Notification> notifications;
 
     @ManyToMany(mappedBy = "likedUsers")
     private List<Post> likes;
@@ -34,6 +34,7 @@ public class User implements Serializable {
     }
 
     public List<Post> getLikes(){return likes;}
+    public List<Notification> getNotifications(){return notifications;}
     public Long getId() {
         return id;
     }
