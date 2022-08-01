@@ -50,6 +50,14 @@ public class Post implements Serializable {
         return comments;
     }
 
+    public void setLikedUsers(List<User> likedUsers) {
+        this.likedUsers = likedUsers;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public Long getId() {
         return id;
     }
