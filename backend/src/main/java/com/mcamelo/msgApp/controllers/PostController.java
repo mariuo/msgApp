@@ -1,5 +1,6 @@
 package com.mcamelo.msgApp.controllers;
 
+import com.mcamelo.msgApp.dtos.CommentDTO;
 import com.mcamelo.msgApp.dtos.CommentRequest;
 import com.mcamelo.msgApp.dtos.PostDTO;
 import com.mcamelo.msgApp.services.PostService;
@@ -38,5 +39,9 @@ public class PostController {
     @PostMapping("/comment")
     public ResponseEntity<PostDTO> createComment(@RequestBody CommentRequest commentRequest){
         return ResponseEntity.ok().body(postService.createComment(commentRequest));
+    }
+    @DeleteMapping("/comment")
+    public ResponseEntity<PostDTO> deleteComment(@RequestBody CommentRequest commentRequest){
+        return ResponseEntity.ok().body(postService.deleteComment(commentRequest));
     }
 }

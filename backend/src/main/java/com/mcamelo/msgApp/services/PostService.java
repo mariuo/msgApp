@@ -91,4 +91,18 @@ public class PostService {
         post = postRepository.save(post);
         return new PostDTO(post);
     }
+    @Transactional
+    public PostDTO deleteComment(CommentRequest commentRequest){
+        Post post = postRepository.getReferenceById(commentRequest.getIdPost());
+        Comment comment = commentRepository.getReferenceById(commentRequest.getComment().getId());
+        List<Comment> listComments = post.getComments();
+        listComments.stream().filter(x -> x.getId().equals(comment.getId())).findAny().map( x -> {
+            listComments.remove(x);
+            return x;
+        });
+        post.setComments(listComments);
+        commentRepository.delete(comment);
+        post = postRepository.save(post);
+        return new PostDTO(post);
+    }
 }
