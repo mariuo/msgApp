@@ -1,12 +1,16 @@
 package com.mcamelo.msgApp.services;
 
 import com.mcamelo.msgApp.dtos.PostDTO;
+import com.mcamelo.msgApp.dtos.UserDTO;
 import com.mcamelo.msgApp.entities.Post;
+import com.mcamelo.msgApp.entities.User;
 import com.mcamelo.msgApp.repositories.PostRepository;
+import com.mcamelo.msgApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +18,9 @@ import java.util.List;
 public class PostService {
     @Autowired
     public PostRepository postRepository;
+
+    @Autowired
+    public UserRepository userRepository;
 
     @Transactional
     public List<PostDTO> getAllPosts(){
@@ -42,5 +49,16 @@ public class PostService {
     public PostDTO getById(Long id){
         Post post = postRepository.findById(id).orElseThrow(()-> new RuntimeException("Post not found") );
         return new PostDTO(post, post.getComments(), post.getLikedUsers());
+    }
+
+    @Transactional
+    public PostDTO create(PostDTO postDTO) {
+        Post entity = new Post();
+        entity.setCreated(Instant.now());
+        entity.setContent(postDTO.getContent());
+        entity.setImageUrl(postDTO.getImageUrl());
+        entity.setAuthor(userRepository.getReferenceById(postDTO.getAuthor().getId()));
+        entity = postRepository.save(entity);
+        return new PostDTO(entity);
     }
 }
