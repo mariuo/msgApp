@@ -12,4 +12,6 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT USER_ID FROM TB_POST_USER_LIKES WHERE POST_ID = ?1", nativeQuery = true)
     List<Long> findAllPostsLikesById(Long id);
+
+
 }

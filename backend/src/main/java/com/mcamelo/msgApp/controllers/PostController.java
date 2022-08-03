@@ -1,5 +1,6 @@
 package com.mcamelo.msgApp.controllers;
 
+import com.mcamelo.msgApp.dtos.CommentRequest;
 import com.mcamelo.msgApp.dtos.PostDTO;
 import com.mcamelo.msgApp.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,13 @@ public class PostController {
     public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO postDTO){
         return ResponseEntity.ok().body(postService.create(postDTO));
     }
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removePost(@PathVariable Long id){
+        postService.remove(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/comment")
+    public ResponseEntity<PostDTO> createComment(@RequestBody CommentRequest commentRequest){
+        return ResponseEntity.ok().body(postService.createComment(commentRequest));
+    }
 }

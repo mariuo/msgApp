@@ -1,12 +1,17 @@
 package com.mcamelo.msgApp.services;
 
+import com.mcamelo.msgApp.dtos.CommentDTO;
+import com.mcamelo.msgApp.dtos.CommentRequest;
 import com.mcamelo.msgApp.dtos.PostDTO;
 import com.mcamelo.msgApp.dtos.UserDTO;
+import com.mcamelo.msgApp.entities.Comment;
 import com.mcamelo.msgApp.entities.Post;
 import com.mcamelo.msgApp.entities.User;
+import com.mcamelo.msgApp.repositories.CommentRepository;
 import com.mcamelo.msgApp.repositories.PostRepository;
 import com.mcamelo.msgApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,6 +26,10 @@ public class PostService {
 
     @Autowired
     public UserRepository userRepository;
+
+    @Autowired
+    public CommentRepository commentRepository;
+
 
     @Transactional
     public List<PostDTO> getAllPosts(){
@@ -60,5 +69,26 @@ public class PostService {
         entity.setAuthor(userRepository.getReferenceById(postDTO.getAuthor().getId()));
         entity = postRepository.save(entity);
         return new PostDTO(entity);
+    }
+    @Transactional
+    public void remove(Long id){
+        var post = postRepository.findById(id).orElseThrow(()-> new RuntimeException("Post not found"));
+        for (Comment c : post.getComments()){
+            commentRepository.delete(c);
+        }
+        postRepository.delete(post);
+    }
+    @Transactional
+    public PostDTO createComment(CommentRequest commentRequest) {
+        Post post = postRepository.getReferenceById(commentRequest.getIdPost());
+        User authorComment = userRepository.getReferenceById(commentRequest.getComment().getAuthorComment().getId());
+        Comment comment = new Comment();
+        comment.setContent(commentRequest.getComment().getContent());
+        comment.setUser(authorComment);
+        comment.setPost(post);
+        comment = commentRepository.save(comment);
+        post.getComments().add(comment);
+        post = postRepository.save(post);
+        return new PostDTO(post);
     }
 }
