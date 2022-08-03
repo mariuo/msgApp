@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_post")
@@ -36,7 +37,7 @@ public class Post implements Serializable {
             name = "tb_post_user_likes",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> likedUsers;
+    private Set<User> likedUsers;
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 

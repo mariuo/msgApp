@@ -2,6 +2,7 @@ package com.mcamelo.msgApp.controllers;
 
 import com.mcamelo.msgApp.dtos.CommentDTO;
 import com.mcamelo.msgApp.dtos.CommentRequest;
+import com.mcamelo.msgApp.dtos.LikeRequest;
 import com.mcamelo.msgApp.dtos.PostDTO;
 import com.mcamelo.msgApp.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,13 @@ public class PostController {
     @DeleteMapping("/comment")
     public ResponseEntity<PostDTO> deleteComment(@RequestBody CommentRequest commentRequest){
         return ResponseEntity.ok().body(postService.deleteComment(commentRequest));
+    }
+    @PostMapping("/like")
+    public ResponseEntity<PostDTO> createLike(@RequestBody LikeRequest likeRequest){
+        return ResponseEntity.ok().body(postService.createLike(likeRequest));
+    }
+    @DeleteMapping("/like")
+    public ResponseEntity<PostDTO> deleteComment(@RequestBody LikeRequest likeRequest){
+        return ResponseEntity.ok().body(postService.deleteLike(likeRequest));
     }
 }

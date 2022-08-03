@@ -1,9 +1,6 @@
 package com.mcamelo.msgApp.services;
 
-import com.mcamelo.msgApp.dtos.CommentDTO;
-import com.mcamelo.msgApp.dtos.CommentRequest;
-import com.mcamelo.msgApp.dtos.PostDTO;
-import com.mcamelo.msgApp.dtos.UserDTO;
+import com.mcamelo.msgApp.dtos.*;
 import com.mcamelo.msgApp.entities.Comment;
 import com.mcamelo.msgApp.entities.Post;
 import com.mcamelo.msgApp.entities.User;
@@ -11,13 +8,13 @@ import com.mcamelo.msgApp.repositories.CommentRepository;
 import com.mcamelo.msgApp.repositories.PostRepository;
 import com.mcamelo.msgApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PostService {
@@ -102,6 +99,26 @@ public class PostService {
         });
         post.setComments(listComments);
         commentRepository.delete(comment);
+        post = postRepository.save(post);
+        return new PostDTO(post);
+    }
+
+    @Transactional
+    public PostDTO createLike(LikeRequest likeRequest){
+        Post post = postRepository.getReferenceById(likeRequest.getIdPost());
+        User authorLIke = userRepository.getReferenceById(likeRequest.getUser().getId());
+        var listLikesUpdated = post.getLikedUsers();
+        listLikesUpdated.add(authorLIke);
+        post = postRepository.save(post);
+        return new PostDTO(post);
+    }
+    @Transactional
+    public PostDTO deleteLike(LikeRequest likeRequest){
+        Post post = postRepository.getReferenceById(likeRequest.getIdPost());
+        User authorLike = userRepository.getReferenceById(likeRequest.getUser().getId());
+        Set<User> userSet = post.getLikedUsers();
+        userSet.remove(authorLike);
+        post.setLikedUsers(userSet);
         post = postRepository.save(post);
         return new PostDTO(post);
     }

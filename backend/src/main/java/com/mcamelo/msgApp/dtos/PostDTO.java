@@ -7,7 +7,9 @@ import com.mcamelo.msgApp.entities.User;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PostDTO implements Serializable {
 
@@ -17,7 +19,7 @@ public class PostDTO implements Serializable {
     private String imageUrl;
     private UserDTO author;
     private List<CommentDTO> comments = new ArrayList<>();
-    private List<UserDTO> likes = new ArrayList<>();
+    private Set<UserDTO> likes = new HashSet<>();
 
     public PostDTO() {
     }
@@ -37,14 +39,11 @@ public class PostDTO implements Serializable {
         this.author = new UserDTO(entity.getAuthor());
     }
 
-    public PostDTO(Post entity, List<Comment> comments, List<User> likes){
+    public PostDTO(Post entity, List<Comment> comments, Set<User> likes){
         this(entity);
         comments.forEach(x -> this.comments.add(new CommentDTO(x)));
-        likes.forEach(y -> this.likes.add(new UserDTO(y)));
-    }
-    public PostDTO(Post entity, List<Comment> comments){
-        this(entity);
-        comments.forEach(x -> this.comments.add(new CommentDTO(x)));
+        likes.forEach(li -> this.likes.add(new UserDTO(li)));
+
     }
 
     public Long getId() {
@@ -95,11 +94,11 @@ public class PostDTO implements Serializable {
         this.comments = comments;
     }
 
-    public List<UserDTO> getLikes() {
+    public Set<UserDTO> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<UserDTO> likes) {
+    public void setLikes(Set<UserDTO> likes) {
         this.likes = likes;
     }
 }
