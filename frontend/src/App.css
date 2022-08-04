@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+
 }
 
 .App-logo {
@@ -51,7 +52,7 @@ a:hover {
 }
 
 .base-input {
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 1em;
   letter-spacing: -0.015em;
   color: #263238;
