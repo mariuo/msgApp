@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -37,7 +38,8 @@ public class Post implements Serializable {
             name = "tb_post_user_likes",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> likedUsers;
+    private Set<User> likedUsers = new HashSet<>();
+
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 

@@ -23,7 +23,7 @@ const Login = () => {
                         <div className='mb-4'>
                             <input
                                 {...register('username')}
-                                name='username'
+                                name="username"
                                 type="text"
                                 className='base-input form-control'
                                 placeholder='Username'

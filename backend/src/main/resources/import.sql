@@ -1,7 +1,15 @@
-INSERT INTO TB_USER (USER_NAME, PASSWORD, IMAGE_URL_PROFILE) VALUES('mario', '123', 'https://avatars.githubusercontent.com/u/30843415?v=4');
-INSERT INTO TB_USER (USER_NAME, PASSWORD, IMAGE_URL_PROFILE) VALUES('felipe', '123', 'https://avatars.githubusercontent.com/u/12265211?v=4');
-INSERT INTO TB_USER (USER_NAME, PASSWORD, IMAGE_URL_PROFILE) VALUES('bruno', '123', 'https://avatars.githubusercontent.com/u/17804667?v=4');
-INSERT INTO TB_USER (USER_NAME, PASSWORD, IMAGE_URL_PROFILE) VALUES('paulo', '123', 'https://avatars.githubusercontent.com/u/55068173?v=4');
+INSERT INTO TB_USER (USER_NAME, PASSWORD, IMAGE_URL_PROFILE) VALUES('mario', '$2a$10$iTWfQs/3KaDyFuCrsBGaau2f1kwaySHtDC1aBclKzblDGSBcy86nC', 'https://avatars.githubusercontent.com/u/30843415?v=4');
+INSERT INTO TB_USER (USER_NAME, PASSWORD, IMAGE_URL_PROFILE) VALUES('felipe', '$2a$10$iTWfQs/3KaDyFuCrsBGaau2f1kwaySHtDC1aBclKzblDGSBcy86nC', 'https://avatars.githubusercontent.com/u/12265211?v=4');
+INSERT INTO TB_USER (USER_NAME, PASSWORD, IMAGE_URL_PROFILE) VALUES('bruno', '$2a$10$iTWfQs/3KaDyFuCrsBGaau2f1kwaySHtDC1aBclKzblDGSBcy86nC', 'https://avatars.githubusercontent.com/u/17804667?v=4');
+INSERT INTO TB_USER (USER_NAME, PASSWORD, IMAGE_URL_PROFILE) VALUES('paulo', '$2a$10$iTWfQs/3KaDyFuCrsBGaau2f1kwaySHtDC1aBclKzblDGSBcy86nC', 'https://avatars.githubusercontent.com/u/55068173?v=4');
+
+INSERT INTO TB_ROLE(AUTHORITY) VALUES ('ROLE_ADMIN');
+INSERT INTO TB_ROLE(AUTHORITY) VALUES ('ROLE_USER');
+
+INSERT INTO TB_USER_ROLE(USER_ID, ROLE_ID) VALUES(1,1);
+INSERT INTO TB_USER_ROLE(USER_ID, ROLE_ID) VALUES(1,2);
+INSERT INTO TB_USER_ROLE(USER_ID, ROLE_ID) VALUES(2,2);
+INSERT INTO TB_USER_ROLE(USER_ID, ROLE_ID) VALUES(3,2);
 
 INSERT INTO TB_POST(USER_ID, CONTENT, CREATED, IMAGE_URL) VALUES(1,'Hello everyone, this is Mario', TIMESTAMP WITH TIME ZONE '2021-11-20T04:00:00Z', 'https://github.githubassets.com/images/modules/profile/achievements/starstruck-default.png');
 INSERT INTO TB_POST(USER_ID, CONTENT, CREATED, IMAGE_URL) VALUES(2,'Hello everyone, this is Felipe my second post.', TIMESTAMP WITH TIME ZONE '2021-11-20T04:00:00Z', 'https://github.githubassets.com/images/modules/profile/achievements/starstruck-default.png');

@@ -3,6 +3,8 @@ package com.mcamelo.msgApp.dtos;
 import com.mcamelo.msgApp.entities.User;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -10,6 +12,8 @@ public class UserDTO implements Serializable {
     private Long id;
     private String userName;
     private String imageUrlProfile;
+
+    Set<RoleDTO> roles = new HashSet<>();
 
     public UserDTO(){
 
@@ -24,6 +28,11 @@ public class UserDTO implements Serializable {
         id = entity.getId();
         userName = entity.getUserName();
         imageUrlProfile = entity.getImageUrlProfile();
+        entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+    }
+
+    public Set<RoleDTO> getRoles() {
+        return roles;
     }
 
     public Long getId() {
