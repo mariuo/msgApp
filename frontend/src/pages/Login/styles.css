@@ -29,3 +29,26 @@
     margin-top: 15px;
     width: 100px;
 }
+
+.login-recovery-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.login-link-recover {
+    font-size: 1em;
+    letter-spacing: -0.015em;
+    color: #407bff;
+    margin-bottom: 10px;
+}
+
+.login-link-register {
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+    letter-spacing: -0.015em;
+    text-decoration-line: underline;
+    color: #407bff;
+    margin-left: 10px;
+}
