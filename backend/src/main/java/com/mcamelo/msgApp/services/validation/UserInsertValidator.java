@@ -10,7 +10,6 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDTO> {
 
@@ -26,7 +25,7 @@ public class UserInsertValidator implements ConstraintValidator<UserInsertValid,
 
         List<FieldMessage> list = new ArrayList<>();
 
-        User user = repository.findByUserName(dto.getUserName());
+        User user = repository.findByName(dto.getName());
 
         if(user != null) {
             list.add(new FieldMessage("userName", "Username already exists"));

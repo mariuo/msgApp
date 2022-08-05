@@ -2,6 +2,7 @@ package com.mcamelo.msgApp.dtos;
 
 import com.mcamelo.msgApp.entities.User;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -12,7 +13,8 @@ public class UserDTO implements Serializable {
 
     private Long id;
     @Size(min = 3, max = 30, message = "Must has between 3 and 30 chars.")
-    private String userName;
+    @NotBlank
+    private String name;
     private String imageUrlProfile;
 
     Set<RoleDTO> roles = new HashSet<>();
@@ -21,14 +23,14 @@ public class UserDTO implements Serializable {
 
     }
 
-    public UserDTO(Long id, String userName, String imageUrlProfile) {
+    public UserDTO(Long id, String name, String imageUrlProfile) {
         this.id = id;
-        this.userName = userName;
+        this.name = name;
         this.imageUrlProfile = imageUrlProfile;
     }
     public UserDTO(User entity) {
         id = entity.getId();
-        userName = entity.getUserName();
+        name = entity.getName();
         imageUrlProfile = entity.getImageUrlProfile();
         entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
     }
@@ -45,12 +47,12 @@ public class UserDTO implements Serializable {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImageUrlProfile() {

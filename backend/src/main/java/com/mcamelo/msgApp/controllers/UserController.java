@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,16 +28,19 @@ public class UserController {
         return ResponseEntity.ok().body(users);
     }
 
+
     @GetMapping(value = "/username/{userName}")
-    public ResponseEntity<UserDTO> getUserByUserName(@PathVariable String userName){
-        UserDTO userDTO = userService.findUserByUsername(userName);
+    public ResponseEntity<UserDTO> getUserByUserName(@PathVariable String name){
+        UserDTO userDTO = userService.findUserByName(name);
         return ResponseEntity.ok().body(userDTO);
     }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable Long id){
         UserDTO dto = userService.findById(id);
         return ResponseEntity.ok().body(dto);
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto){
         UserDTO newDto = userService.insert(dto);
