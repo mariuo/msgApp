@@ -7,6 +7,8 @@ import com.mcamelo.msgApp.entities.Role;
 import com.mcamelo.msgApp.entities.User;
 import com.mcamelo.msgApp.repositories.RoleRepository;
 import com.mcamelo.msgApp.repositories.UserRepository;
+import com.mcamelo.msgApp.services.exceptions.DatabaseException;
+import com.mcamelo.msgApp.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -36,17 +38,21 @@ public class UserService {
     }
     @Transactional(readOnly = true)
     public UserDTO findUserByUsername(String userName) {
-        User entity = userRepository.findUserByUsername(userName).orElseThrow(()-> new RuntimeException("User not found"));
-        return new UserDTO(entity);
+         User obj = userRepository.findByUserName(userName);
+         if(obj == null){
+             throw new ResourceNotFoundException("Username not found " + userName);
+         }
+        return new UserDTO(obj);
     }
     @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
         Optional<User> obj = userRepository.findById(id);
-        User entity = obj.orElseThrow(() -> new RuntimeException("Entity not found"));
+        User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
         return new UserDTO(entity);
     }
     @Transactional
     public UserDTO insert(UserInsertDTO dto) {
+
         User entity = new User();
         copyDtoToEntity(dto, entity);
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -62,7 +68,7 @@ public class UserService {
             return new UserDTO(entity);
         }
         catch(EntityNotFoundException e) {
-            throw new RuntimeException("Id not found " + id);
+            throw new ResourceNotFoundException("Id not found " + id);
 
         }
     }
@@ -72,10 +78,10 @@ public class UserService {
             userRepository.deleteById(id);
         }
         catch(EmptyResultDataAccessException e) {
-            throw new RuntimeException("Id not found" + id);
+            throw new ResourceNotFoundException("Id not found " + id);
         }
         catch(DataIntegrityViolationException e) {
-            throw new RuntimeException("Integrity violation");
+            throw new DatabaseException("Integrity violation");
         }
 
     }

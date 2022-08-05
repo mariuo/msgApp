@@ -2,6 +2,7 @@ package com.mcamelo.msgApp.dtos;
 
 import com.mcamelo.msgApp.entities.User;
 
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +11,7 @@ public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+    @Size(min = 3, max = 30, message = "Must has between 3 and 30 chars.")
     private String userName;
     private String imageUrlProfile;
 

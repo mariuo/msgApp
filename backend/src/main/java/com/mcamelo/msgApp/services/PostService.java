@@ -7,6 +7,7 @@ import com.mcamelo.msgApp.entities.User;
 import com.mcamelo.msgApp.repositories.CommentRepository;
 import com.mcamelo.msgApp.repositories.PostRepository;
 import com.mcamelo.msgApp.repositories.UserRepository;
+import com.mcamelo.msgApp.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +54,7 @@ public class PostService {
 
     @Transactional
     public PostDTO getById(Long id){
-        Post post = postRepository.findById(id).orElseThrow(()-> new RuntimeException("Post not found") );
+        Post post = postRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Post not found") );
         return new PostDTO(post, post.getComments(), post.getLikedUsers());
     }
 
@@ -69,7 +70,7 @@ public class PostService {
     }
     @Transactional
     public void remove(Long id){
-        var post = postRepository.findById(id).orElseThrow(()-> new RuntimeException("Post not found"));
+        var post = postRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Post not found"));
         for (Comment c : post.getComments()){
             commentRepository.delete(c);
         }
