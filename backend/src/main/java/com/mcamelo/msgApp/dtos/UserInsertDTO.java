@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @UserInsertValid
 public class UserInsertDTO extends UserDTO {
-
+    private static final long serialVersionUID = 1L;
     @NotBlank(message = "Password must be not empity.")
     @Size(min = 3, max = 30, message = "Must has between 3 and 30 chars.")
     private String password;

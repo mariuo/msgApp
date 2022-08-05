@@ -2,6 +2,7 @@ package com.mcamelo.msgApp.controllers;
 
 import com.mcamelo.msgApp.dtos.UserDTO;
 import com.mcamelo.msgApp.dtos.UserInsertDTO;
+import com.mcamelo.msgApp.dtos.UserUpdateDTO;
 import com.mcamelo.msgApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,10 +46,9 @@ public class UserController {
 
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id, @RequestBody UserInsertDTO dto){
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto){
         UserDTO newDto = userService.update(id, dto);
         return ResponseEntity.ok().body(newDto);
-
     }
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){

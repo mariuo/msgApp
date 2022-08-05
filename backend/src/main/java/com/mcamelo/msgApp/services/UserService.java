@@ -69,7 +69,6 @@ public class UserService {
         }
         catch(EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
-
         }
     }
     @Transactional
