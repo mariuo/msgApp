@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import './styles.css';
 import { useForm } from "react-hook-form";
+import { requestBackEndLogin } from 'util/request';
+import { useState } from 'react';
 
 type FormData = {
     username: string;
@@ -8,8 +10,18 @@ type FormData = {
 }
 
 const Login = () => {
+    const [hasError, setHasError] = useState(false);
+
     const { register, handleSubmit } = useForm<FormData>();
     const onSubmit = (formData: FormData) => {
+        requestBackEndLogin(formData)
+            .then(response => {
+                setHasError(false);
+                console.log('SUCESSO', response)
+            }).catch(error => {
+                setHasError(true)
+                console.log('ERROR', error)
+            })
         console.log(formData)
     }
     return (
@@ -18,6 +30,13 @@ const Login = () => {
                 <h2 className='login-title'>
                     login
                 </h2>
+                {hasError &&
+                    <div className='alert-danger alert form-control' role="alert">
+                        <span>
+                            Login error
+                        </span>
+                    </div>
+                }
                 <div className='login-form'>
                     <form onSubmit={handleSubmit(onSubmit)} className="login-form">
                         <div className='mb-4'>
