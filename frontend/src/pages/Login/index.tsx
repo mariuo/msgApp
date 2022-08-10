@@ -46,7 +46,7 @@ const Login = () => {
                                 })}
                                 name="username"
                                 type="text"
-                                className='base-input form-control'
+                                className={`base-input form-control ${errors.username ? 'is-invalid' : ''}`}
                                 placeholder='Username'
                             />
 
@@ -59,7 +59,7 @@ const Login = () => {
                                 })}
                                 name='password'
                                 type="password"
-                                className='base-input form-control'
+                                className={`base-input form-control ${errors.password ? 'is-invalid' : ''}`}
                                 placeholder='Password'
                             />
 
