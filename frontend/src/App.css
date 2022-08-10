@@ -62,3 +62,16 @@ a:hover {
 .base-input::placeholder {
   color: #9E9E9E;
 }
+
+:root {
+  --primary-color: #8d79ff;
+  --secondary-color: #1B2531;
+  --light-color: #E9E9E9;
+  --grey-light-50-color: #9AAABE;
+  --grey-light-100-color: #949494;
+  --grey-light-150-color: #384459;
+  --grey-light--125-color: #72849A;
+  --green-color: #08B976;
+  --white-color: #FFF;
+
+}

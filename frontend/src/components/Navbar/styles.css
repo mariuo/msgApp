@@ -1,5 +1,5 @@
 .container-navbar {
-    background-color: #407bff;
+    background-color: var(--primary-color);
     height: 50px;
     color: #FFF;
 }

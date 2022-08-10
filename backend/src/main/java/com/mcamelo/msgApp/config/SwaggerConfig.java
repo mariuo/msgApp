@@ -1,41 +1,4 @@
 package com.mcamelo.msgApp.config;
-
-
-
-//@Configuration
-////@OpenAPIDefinition(
-//        info =@io.swagger.v3.oas.annotations.info.Info(
-//                title = "User API",
-//                version = "${api.version}",
-//                contact = @Contact (
-//                        name = "Baeldung", email = "user-apis@baeldung.com", url = "https://www.baeldung.com"
-//                ),
-//                license = @io.swagger.v3.oas.annotations.info.License(
-//                        name = "Apache 2.0", url = "https://www.apache.org/licenses/LICENSE-2.0"
-//                ),
-//                termsOfService = "${tos.uri}",
-//                description = "${api.description}"
-//        ),
-//        servers = @Server(
-//                url = "${api.server.url}",
-//                description = "Production"
-//        )
-//)
-//public class SwaggerConfig {
-
-   // @Bean
-//    public OpenAPI springShopOpenAPI() {
-//        return new OpenAPI()
-//                .info(new Info().title("Spring msgAPP API")
-//                        .description("msgAPP sample application")
-//                        .version("v0.0.1")
-//                        .license(new License().name("Apache 2.0").url("http://springdoc.org")))
-//                .externalDocs(new ExternalDocumentation()
-//                        .description("msgAPP Wiki Documentation")
-//                        .url("https://msgAPP.wiki.github.org/docs"));
-//    }
-//}
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;

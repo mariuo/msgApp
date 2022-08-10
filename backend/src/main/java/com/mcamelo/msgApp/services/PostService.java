@@ -64,7 +64,7 @@ public class PostService {
         entity.setCreated(Instant.now());
         entity.setContent(postDTO.getContent());
         entity.setImageUrl(postDTO.getImageUrl());
-        entity.setAuthor(userRepository.getReferenceById(postDTO.getAuthor().getId()));
+        entity.setAuthor(userRepository.getOne(postDTO.getAuthor().getId()));
         entity = postRepository.save(entity);
         return new PostDTO(entity);
     }
@@ -78,8 +78,8 @@ public class PostService {
     }
     @Transactional
     public PostDTO createComment(CommentRequest commentRequest) {
-        Post post = postRepository.getReferenceById(commentRequest.getIdPost());
-        User authorComment = userRepository.getReferenceById(commentRequest.getComment().getAuthorComment().getId());
+        Post post = postRepository.getOne(commentRequest.getIdPost());
+        User authorComment = userRepository.getOne(commentRequest.getComment().getAuthorComment().getId());
         Comment comment = new Comment();
         comment.setContent(commentRequest.getComment().getContent());
         comment.setUser(authorComment);
@@ -91,8 +91,8 @@ public class PostService {
     }
     @Transactional
     public PostDTO deleteComment(CommentRequest commentRequest){
-        Post post = postRepository.getReferenceById(commentRequest.getIdPost());
-        Comment comment = commentRepository.getReferenceById(commentRequest.getComment().getId());
+        Post post = postRepository.getOne(commentRequest.getIdPost());
+        Comment comment = commentRepository.getOne(commentRequest.getComment().getId());
         List<Comment> listComments = post.getComments();
         listComments.stream().filter(x -> x.getId().equals(comment.getId())).findAny().map( x -> {
             listComments.remove(x);
@@ -106,8 +106,8 @@ public class PostService {
 
     @Transactional
     public PostDTO createLike(LikeRequest likeRequest){
-        Post post = postRepository.getReferenceById(likeRequest.getIdPost());
-        User authorLIke = userRepository.getReferenceById(likeRequest.getUser().getId());
+        Post post = postRepository.getOne(likeRequest.getIdPost());
+        User authorLIke = userRepository.getOne(likeRequest.getUser().getId());
         var listLikesUpdated = post.getLikedUsers();
         listLikesUpdated.add(authorLIke);
         post = postRepository.save(post);
@@ -115,8 +115,8 @@ public class PostService {
     }
     @Transactional
     public PostDTO deleteLike(LikeRequest likeRequest){
-        Post post = postRepository.getReferenceById(likeRequest.getIdPost());
-        User authorLike = userRepository.getReferenceById(likeRequest.getUser().getId());
+        Post post = postRepository.getOne(likeRequest.getIdPost());
+        User authorLike = userRepository.getOne(likeRequest.getUser().getId());
         Set<User> userSet = post.getLikedUsers();
         userSet.remove(authorLike);
         post.setLikedUsers(userSet);

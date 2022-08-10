@@ -12,8 +12,8 @@ const PostCard = ({ postType }: Props) => {
         <div className='post-card base-card'>
             <div className="post-card-top">
                 <div className="post-contact">
-                    <img src={postType?.author.imageUrlProfile} alt={postType?.author.userName} />
-                    <h6>{postType?.author.userName}</h6>
+                    <img src={postType?.author.imageUrlProfile} alt={postType?.author.name} />
+                    <h6>{postType?.author.name}</h6>
                 </div>
                 <BiAlignMiddle />
             </div>

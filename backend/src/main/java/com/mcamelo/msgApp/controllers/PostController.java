@@ -7,6 +7,7 @@ import com.mcamelo.msgApp.dtos.PostDTO;
 import com.mcamelo.msgApp.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +18,12 @@ public class PostController {
 
     @Autowired
     public PostService postService;
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping
     public ResponseEntity<List<PostDTO>> getAllPosts(){
         return ResponseEntity.ok().body(postService.getAllPosts());
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> getAllPosts(@PathVariable Long id){

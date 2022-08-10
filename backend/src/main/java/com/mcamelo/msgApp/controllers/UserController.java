@@ -29,9 +29,10 @@ public class UserController {
     }
 
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping(value = "/username/{userName}")
-    public ResponseEntity<UserDTO> getUserByUserName(@PathVariable String name){
-        UserDTO userDTO = userService.findUserByName(name);
+    public ResponseEntity<UserDTO> getUserByUserName(@PathVariable String userName){
+        UserDTO userDTO = userService.findUserByName(userName);
         return ResponseEntity.ok().body(userDTO);
     }
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")

@@ -28,6 +28,7 @@
 .login-submit {
     margin-top: 15px;
     width: 100px;
+    background-color: var(--primary-color) !important;
 }
 
 .login-recovery-bottom {
@@ -39,7 +40,7 @@
 .login-link-recover {
     font-size: 1em;
     letter-spacing: -0.015em;
-    color: #407bff;
+    color: var(--primary-color);
     margin-bottom: 10px;
 }
 
@@ -49,6 +50,6 @@
     text-align: center;
     letter-spacing: -0.015em;
     text-decoration-line: underline;
-    color: #407bff;
+    color: var(--primary-color);
     margin-left: 10px;
 }
