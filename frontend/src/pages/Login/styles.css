@@ -10,9 +10,18 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 360px;
+    height: 450px;
     width: 360px;
     padding: 50px 30px;
+}
+
+.login-content div.alert-danger.alert {
+    width: 150px;
+    height: 30px;
+    padding: 5px;
+    font-size: 13px;
+    text-align: center;
+    justify-content: center;
 }
 
 .login-title {

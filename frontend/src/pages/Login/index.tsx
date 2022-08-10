@@ -12,7 +12,7 @@ type FormData = {
 const Login = () => {
     const [hasError, setHasError] = useState(false);
 
-    const { register, handleSubmit } = useForm<FormData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const onSubmit = (formData: FormData) => {
         requestBackEndLogin(formData)
             .then(response => {
@@ -31,33 +31,39 @@ const Login = () => {
                     login
                 </h2>
                 {hasError &&
-                    <div className='alert-danger alert form-control' role="alert">
-                        <span>
-                            Login error
-                        </span>
+                    <div className='alert-danger alert' role="alert">
+
+                        Login error
+
                     </div>
                 }
                 <div className='login-form'>
                     <form onSubmit={handleSubmit(onSubmit)} className="login-form">
                         <div className='mb-4'>
                             <input
-                                {...register('username')}
+                                {...register('username', {
+                                    required: 'Required username'
+                                })}
                                 name="username"
                                 type="text"
                                 className='base-input form-control'
                                 placeholder='Username'
                             />
 
+                            <div className='invalid-feedback d-block'>{errors.username?.message}</div>
                         </div>
                         <div className='mb-2'>
                             <input
-                                {...register('password')}
+                                {...register('password', {
+                                    required: 'Required password'
+                                })}
                                 name='password'
                                 type="password"
                                 className='base-input form-control'
                                 placeholder='Password'
                             />
 
+                            <div className='invalid-feedback d-block'>{errors.password?.message}</div>
                         </div>
                         <button className='btn btn-primary login-submit'>Login</button>
                     </form>
