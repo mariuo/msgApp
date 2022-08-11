@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './styles.css';
 import { useForm } from "react-hook-form";
-import { requestBackEndLogin } from 'util/request';
+import { getAuthData, requestBackEndLogin, saveAuthData } from 'util/request';
 import { useState } from 'react';
 
 type FormData = {
@@ -16,13 +16,16 @@ const Login = () => {
     const onSubmit = (formData: FormData) => {
         requestBackEndLogin(formData)
             .then(response => {
+                saveAuthData(response.data);
+                const token = getAuthData().access_token;
+                //console.log(token)
                 setHasError(false);
-                console.log('SUCESSO', response)
+                //console.log('SUCESSO', response)
             }).catch(error => {
                 setHasError(true)
-                console.log('ERROR', error)
+                //console.log('ERROR', error)
             })
-        console.log(formData)
+        //console.log(formData)
     }
     return (
         <div className='login-container'>
