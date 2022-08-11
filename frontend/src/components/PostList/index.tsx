@@ -2,7 +2,7 @@ import "./styles.css";
 import PostCard from 'components/PostCard';
 import { PostType } from "types/postType";
 import { AxiosRequestConfig } from "axios";
-import { BASE_URL, requestBackEnd } from "util/request";
+import { BASE_URL, requestBackend } from "util/request";
 import { useState, useEffect } from "react";
 
 
@@ -19,7 +19,7 @@ const PostList = () => {
             withCredentials: true
         }
 
-        requestBackEnd(params)
+        requestBackend(params)
             .then(response => {
                 setListPost(response.data);
                 //console.log(response.data);

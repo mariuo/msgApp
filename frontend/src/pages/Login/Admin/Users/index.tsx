@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import { SpringPage } from 'types/springPage';
 import { User } from 'types/user';
-import { requestBackEnd } from 'util/request';
+import { requestBackend } from 'util/request';
 import './styles.css';
 
 const Users = () => {
@@ -18,7 +18,7 @@ const Users = () => {
             },
         };
 
-        requestBackEnd(params).then((response) => {
+        requestBackend(params).then((response) => {
             setPage(response.data);
         });
     }, []);

@@ -1,17 +1,14 @@
-import PostCreate from 'components/PostCreate';
-import PostList from 'components/PostList';
-import './styles.css';
-
 const Home = () => {
     return (
-        <div className='home-container'>
-            <PostCreate />
-            <div className='list-container'>
-                <PostList />
-            </div>
+        <div>
+            <h1>
 
+                Welcome.
+            </h1>
+            Click to login!!
         </div>
-    );
+
+    )
 }
 
 export default Home;
