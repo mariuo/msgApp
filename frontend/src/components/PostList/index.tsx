@@ -1,8 +1,8 @@
 import "./styles.css";
 import PostCard from 'components/PostCard';
 import { PostType } from "types/postType";
-import axios, { AxiosRequestConfig } from "axios";
-import { BASE_URL } from "util/request";
+import { AxiosRequestConfig } from "axios";
+import { BASE_URL, requestBackEnd } from "util/request";
 import { useState, useEffect } from "react";
 
 
@@ -15,10 +15,11 @@ const PostList = () => {
         const params: AxiosRequestConfig = {
             method: 'GET',
             url: "/post",
-            baseURL: BASE_URL
+            baseURL: BASE_URL,
+            withCredentials: true
         }
 
-        axios(params)
+        requestBackEnd(params)
             .then(response => {
                 setListPost(response.data);
                 //console.log(response.data);

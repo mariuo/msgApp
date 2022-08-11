@@ -3,6 +3,7 @@ import './styles.css';
 import { useForm } from "react-hook-form";
 import { getAuthData, requestBackEndLogin, saveAuthData } from 'util/request';
 import { useState } from 'react';
+import history from 'util/history';
 
 type FormData = {
     username: string;
@@ -17,10 +18,11 @@ const Login = () => {
         requestBackEndLogin(formData)
             .then(response => {
                 saveAuthData(response.data);
-                const token = getAuthData().access_token;
+                //const token = getAuthData().access_token;
                 //console.log(token)
                 setHasError(false);
                 //console.log('SUCESSO', response)
+                history.push('/home')
             }).catch(error => {
                 setHasError(true)
                 //console.log('ERROR', error)

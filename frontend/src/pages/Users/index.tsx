@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { SpringPage } from 'types/springPage';
 import { User } from 'types/user';
 import { requestBackEnd } from 'util/request';
+import './styles.css';
 
 const Users = () => {
     const [page, setPage] = useState<SpringPage<User>>();
@@ -25,7 +26,14 @@ const Users = () => {
     return (
         <div>
             {page?.content.map((item) => (
-                <p key={item.id}>{item.name}</p>
+                <div className="user-info" key={item.id}>
+
+                    <img src={item?.imageUrlProfile} alt={item?.name} />
+                    <h6>ID#<b> {item.id} </b> : {item.name}</h6>
+
+
+                </div>
+
             ))}
         </div>
     );
