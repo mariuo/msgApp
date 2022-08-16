@@ -1,0 +1,30 @@
+.post-comment-content {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.post-comment-title {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.post-comment-title img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-comment-title h5 {
+    margin-top: 8px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.post-comment-title span {
+    font-size: 10px;
+}

@@ -16,9 +16,10 @@ type FormData = {
 const Login = () => {
     const [hasError, setHasError] = useState(false);
 
-    const { authContextData, setAuthContextData } = useContext(AuthContext);
+    const { setAuthContextData } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+
     const onSubmit = (formData: FormData) => {
         requestBackendLogin(formData)
             .then(response => {
@@ -47,9 +48,7 @@ const Login = () => {
                 </h2>
                 {hasError &&
                     <div className='alert-danger alert' role="alert">
-
-                        Login error
-
+                        Bad Login username/password.
                     </div>
                 }
                 <div className='login-form'>

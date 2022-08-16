@@ -6,7 +6,8 @@ import { AuthContext } from 'AuthContext';
 import { isAuthenticated } from 'util/auth';
 import { removeAuthData } from 'util/storage';
 import { getTokenData } from 'util/token';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 const Navbar = () => {
     const { authContextData, setAuthContextData } = useContext(AuthContext);
 

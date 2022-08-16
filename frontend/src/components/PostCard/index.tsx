@@ -3,11 +3,15 @@ import { BiAlignMiddle } from 'react-icons/bi';
 import { AiFillLike } from 'react-icons/ai';
 import { GoComment } from 'react-icons/go';
 import { PostType } from "types/postType";
+import PostComment from "components/PostComment";
+import { Comment } from "types/comment";
 
 type Props = {
     postType: PostType;
 }
 const PostCard = ({ postType }: Props) => {
+    const { comments } = postType;
+
     return (
         <div className='post-card base-card'>
             <div className="post-card-top">
@@ -32,6 +36,12 @@ const PostCard = ({ postType }: Props) => {
                     <GoComment />
                     <span>{postType?.comments.length}</span>
                 </div>
+            </div>
+            <div className="post-comment-container">
+                {comments.map((x) => (
+                    <PostComment key={x.id} comment={x} />
+
+                ))}
             </div>
         </div >
     );
