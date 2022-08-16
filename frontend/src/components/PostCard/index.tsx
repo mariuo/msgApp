@@ -4,7 +4,7 @@ import { AiFillLike } from 'react-icons/ai';
 import { GoComment } from 'react-icons/go';
 import { PostType } from "types/postType";
 import PostComment from "components/PostComment";
-import { Comment } from "types/comment";
+import PostCommentCreate from "components/PostCommentCreate";
 
 type Props = {
     postType: PostType;
@@ -39,9 +39,10 @@ const PostCard = ({ postType }: Props) => {
             </div>
             <div className="post-comment-container">
                 {comments.map((x) => (
-                    <PostComment key={x.id} comment={x} />
+                    <PostComment key={x.id} comment={x} user={postType?.author} id={postType.id} />
 
                 ))}
+                <PostCommentCreate />
             </div>
         </div >
     );
