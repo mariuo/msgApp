@@ -12,7 +12,7 @@ type Props = {
     post: PostType;
 }
 
-const PostComment = ({ comment, post }: Props) => {
+const CommentCard = ({ comment, post }: Props) => {
     const data = { idPost: post.id, comment: comment }
 
     const { authContextData } = useContext(AuthContext);
@@ -20,7 +20,6 @@ const PostComment = ({ comment, post }: Props) => {
     //Precisa corrigir quando deleta, dar um refresh, e qnd tenta colocar outro comment depois do primeiro, ele não faz.
 
     const handleDeleteComment = () => {
-        //console.log(data)
         const params: AxiosRequestConfig = {
             method: 'DELETE',
             url: "/post/comment/",
@@ -52,4 +51,4 @@ const PostComment = ({ comment, post }: Props) => {
     )
 }
 
-export default PostComment;
+export default CommentCard;

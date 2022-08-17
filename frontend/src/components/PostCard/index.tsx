@@ -1,13 +1,12 @@
 import "./styles.css";
-import { BiAlignMiddle } from 'react-icons/bi';
 import { AiFillLike } from 'react-icons/ai';
 import { GoComment } from 'react-icons/go';
 import { PostType } from "types/postType";
-import PostComment from "components/PostComment";
-import PostCommentCreate from "components/PostCommentCreate";
 import { FaTrashAlt } from "react-icons/fa";
 import { AxiosRequestConfig } from "axios";
 import { BASE_URL, requestBackend } from "util/request";
+import CommentCard from "components/CommentCard";
+import CommentCreateCard from "components/CommentCreateCard";
 
 type Props = {
     postType: PostType;
@@ -65,9 +64,9 @@ const PostCard = ({ postType, userActiveId }: Props) => {
             </div>
             <div className="post-comment-container">
                 {comments.map((comment) => (
-                    <PostComment key={comment.id} comment={comment} post={postType} />
+                    <CommentCard key={comment.id} comment={comment} post={postType} />
                 ))}
-                <PostCommentCreate post={postType} userActiveId={userActiveId} />
+                <CommentCreateCard post={postType} userActiveId={userActiveId} />
             </div>
         </div >
     );
