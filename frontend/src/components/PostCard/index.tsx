@@ -5,12 +5,33 @@ import { GoComment } from 'react-icons/go';
 import { PostType } from "types/postType";
 import PostComment from "components/PostComment";
 import PostCommentCreate from "components/PostCommentCreate";
+import { FaTrashAlt } from "react-icons/fa";
+import { AxiosRequestConfig } from "axios";
+import { BASE_URL, requestBackend } from "util/request";
 
 type Props = {
     postType: PostType;
+    userActiveId: number;
 }
-const PostCard = ({ postType }: Props) => {
+const PostCard = ({ postType, userActiveId }: Props) => {
     const { comments } = postType;
+    const idPost = postType.id;
+    const handleDeletePost = () => {
+        if (!window.confirm("Are you sure?")) {
+            return;
+        }
+        const params: AxiosRequestConfig = {
+            method: 'DELETE',
+            url: `/post/${idPost}`,
+            baseURL: BASE_URL,
+            withCredentials: true,
+        }
+
+        requestBackend(params)
+            .then(response => {
+                window.location.reload();
+            })
+    };
 
     return (
         <div className='post-card base-card'>
@@ -19,7 +40,12 @@ const PostCard = ({ postType }: Props) => {
                     <img src={postType?.author.imageUrlProfile} alt={postType?.author.name} />
                     <h6>{postType?.author.name}</h6>
                 </div>
-                <BiAlignMiddle />
+                {postType.author.id === userActiveId && (
+                    <div className="post-comment-icon" onClick={handleDeletePost}>
+                        <FaTrashAlt />
+                    </div>
+
+                )}
             </div>
             <div className="post-card-mid">
                 <p>{postType?.content}</p>
@@ -38,11 +64,10 @@ const PostCard = ({ postType }: Props) => {
                 </div>
             </div>
             <div className="post-comment-container">
-                {comments.map((x) => (
-                    <PostComment key={x.id} comment={x} user={postType?.author} id={postType.id} />
-
+                {comments.map((comment) => (
+                    <PostComment key={comment.id} comment={comment} post={postType} />
                 ))}
-                <PostCommentCreate key={postType.id} post={postType} />
+                <PostCommentCreate post={postType} userActiveId={userActiveId} />
             </div>
         </div >
     );

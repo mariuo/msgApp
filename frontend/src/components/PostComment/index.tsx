@@ -1,20 +1,19 @@
 import { Comment } from "types/comment";
 import "./styles.css";
 import { FaTrash } from "react-icons/fa";
-import { User } from "types/user";
 import { AxiosRequestConfig } from "axios";
 import { BASE_URL, requestBackend } from "util/request";
 import { useContext } from "react";
 import { AuthContext } from "AuthContext";
+import { PostType } from "types/postType";
 
 type Props = {
     comment: Comment;
-    user: User;
-    id: number;
+    post: PostType;
 }
 
-const PostComment = ({ comment, user, id }: Props) => {
-    const data = { idPost: id, comment: comment }
+const PostComment = ({ comment, post }: Props) => {
+    const data = { idPost: post.id, comment: comment }
 
     const { authContextData } = useContext(AuthContext);
 
@@ -32,7 +31,7 @@ const PostComment = ({ comment, user, id }: Props) => {
 
         requestBackend(params)
             .then(response => {
-                //console.log(response.data);
+                window.location.reload();
             })
     };
 

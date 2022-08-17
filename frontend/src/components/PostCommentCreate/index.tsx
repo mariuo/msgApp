@@ -2,46 +2,53 @@ import "./styles.css"
 import { IoIosSend } from "react-icons/io";
 import { BASE_URL, requestBackend } from "util/request";
 import { AxiosRequestConfig } from "axios";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { PostType } from "types/postType";
-import { AuthContext } from "AuthContext";
+import history from "util/history";
 
 type Props = {
     post: PostType;
+    userActiveId: number;
 }
 
-const PostCommentCreate = ({ post }: Props) => {
-    const { authContextData } = useContext(AuthContext);
+const PostCommentCreate = ({ post, userActiveId }: Props) => {
 
     //const { handleSubmit } = useForm<CommentRequest>();
     const [newComment, setNewComment] = useState("");
 
+
     const onSubmitComment = () => {
-        const formComment = {
-            idPost: post.id,
-            comment: {
-                id: null,
-                content: newComment,
-                authorComment: {
-                    id: authContextData.userId
+
+        if (newComment !== "" && newComment !== undefined) {
+
+            const formComment = {
+                idPost: post.id,
+                comment: {
+                    id: 0,
+                    content: newComment,
+                    authorComment: {
+                        id: userActiveId
+                    }
                 }
             }
-        }
 
-        const params: AxiosRequestConfig = {
-            method: 'POST',
-            url: "/post/comment/",
-            baseURL: BASE_URL,
-            withCredentials: true,
-            data: formComment
-        }
+            const params: AxiosRequestConfig = {
+                method: 'POST',
+                url: "/post/comment/",
+                baseURL: BASE_URL,
+                withCredentials: true,
+                data: formComment
+            }
 
-        requestBackend(params)
-            .then(response => {
-                console.log(response.data);
-            }).catch((e) => {
-                console.log("error" + e)
-            })
+            requestBackend(params)
+                .then(response => {
+                    setNewComment("");
+                    history.goBack();
+
+                }).catch((e) => {
+                    console.log("error" + e)
+                })
+        }
     }
 
     return (
