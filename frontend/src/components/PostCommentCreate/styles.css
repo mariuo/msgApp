@@ -2,38 +2,32 @@
     margin-top: 10px;
     display: flex;
     flex-direction: row;
+    align-items: center;
     /* justify-content: space-between; */
 }
 
-.comment-form {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    background-color: #fff;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 20px;
-}
 
 .create-comment-input {
     border: 0;
     outline: 0;
     box-sizing: border-box;
-    font-size: 18px;
+    font-size: 14px;
     padding: 10px;
     width: 290px;
-    height: 37px;
-    background: #fff;
-    border-bottom: 1px solid #9b9b9b;
+    height: 35px;
+    background: var(--white-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+
 }
 
 .post-comment-create-button {
-    width: 30px;
-    height: 30px;
+    margin-left: 10px;
+    width: 35px;
+    height: 35px;
     font-size: 20px;
-    color: white;
+    color: var(--light-color);
     background: var(--primary-color);
     border: none;
     border-radius: 5px;
-    margin-top: 20px;
 }

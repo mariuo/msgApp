@@ -42,7 +42,7 @@ const PostCard = ({ postType }: Props) => {
                     <PostComment key={x.id} comment={x} user={postType?.author} id={postType.id} />
 
                 ))}
-                <PostCommentCreate />
+                <PostCommentCreate key={postType.id} post={postType} />
             </div>
         </div >
     );

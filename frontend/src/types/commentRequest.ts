@@ -1,7 +1,7 @@
 import { Comment } from "./comment";
 
 export type CommentRequest = {
-    idPost: String;
+    idPost: number;
     comment: Comment;
 
 }

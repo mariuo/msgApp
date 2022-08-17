@@ -4,6 +4,7 @@ import { TokenData } from 'util/token';
 export type AuthcontextData = {
     authenticated: boolean;
     tokenData?: TokenData;
+    userId?: number;
 };
 
 export type AuthContextType = {

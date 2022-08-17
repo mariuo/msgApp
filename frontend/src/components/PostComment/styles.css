@@ -21,14 +21,14 @@
 
 .post-comment-title h5 {
     margin-top: 8px;
-    font-size: 12px;
+    font-size: 14px;
     margin-right: 10px;
 }
 
 .post-comment-title span {
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .post-comment-icon {
-    color: var(--green-color);
+    color: var(--red-color);
 }

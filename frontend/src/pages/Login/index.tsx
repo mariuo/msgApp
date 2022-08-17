@@ -28,9 +28,11 @@ const Login = () => {
                 //console.log(token)
                 setHasError(false);
                 //console.log('SUCESSO', response)
+                //console.log(response.data.userId)
                 setAuthContextData({
                     authenticated: true,
-                    tokenData: getTokenData()
+                    tokenData: getTokenData(),
+                    userId: response.data.userId
                 }
                 )
                 history.push('/login/posts')
