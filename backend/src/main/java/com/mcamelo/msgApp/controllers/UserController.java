@@ -29,13 +29,13 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping(value = "/username/{userName}")
     public ResponseEntity<UserDTO> getUserByUserName(@PathVariable String userName){
         UserDTO userDTO = userService.findUserByName(userName);
         return ResponseEntity.ok().body(userDTO);
     }
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable Long id){
         UserDTO dto = userService.findById(id);
@@ -50,11 +50,13 @@ public class UserController {
         return ResponseEntity.created(uri).body(newDto);
 
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto){
         UserDTO newDto = userService.update(id, dto);
         return ResponseEntity.ok().body(newDto);
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         userService.delete(id);
