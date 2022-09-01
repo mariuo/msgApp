@@ -42,4 +42,12 @@
     margin-right: 10px;
 }
 
-.post-comment-container {}
+.post-like-icon {
+    cursor: pointer;
+    transition: 0.2ms ease-in-out;
+    margin-right: 5px;
+}
+
+.post-like-icon:hover {
+    transform: scale(1.1);
+}

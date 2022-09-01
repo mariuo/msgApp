@@ -20,7 +20,7 @@ const CommentCreateCard = ({ post, userActiveId }: Props) => {
 
         const commResu = formData.comment;
 
-        console.log(commResu)
+        //console.log(commResu)
 
         const formComment = {
             idPost: post.id,

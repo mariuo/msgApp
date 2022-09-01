@@ -1,5 +1,6 @@
 import "./styles.css";
-import { AiFillLike } from 'react-icons/ai';
+
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { GoComment } from 'react-icons/go';
 import { PostType } from "types/postType";
 import { FaTrashAlt } from "react-icons/fa";
@@ -31,6 +32,66 @@ const PostCard = ({ postType, userActiveId }: Props) => {
                 window.location.reload();
             })
     };
+    const deleteLike = () => {
+
+        //const commResu = formData.comment;
+
+        //console.log(commResu)
+
+        const formLike = {
+            idPost: postType.id,
+            user: {
+                id: userActiveId
+            }
+        }
+
+        const params: AxiosRequestConfig = {
+            method: 'DELETE',
+            url: "/post/like",
+            baseURL: BASE_URL,
+            withCredentials: true,
+            data: formLike
+        }
+
+        requestBackend(params)
+            .then(response => {
+                window.location.reload();
+
+            }).catch((e) => {
+                console.log("error" + e)
+            })
+
+    }
+    const insertLike = () => {
+
+        //const commResu = formData.comment;
+
+        //console.log(commResu)
+
+        const formLike = {
+            idPost: postType.id,
+            user: {
+                id: userActiveId
+            }
+        }
+
+        const params: AxiosRequestConfig = {
+            method: 'POST',
+            url: "/post/like",
+            baseURL: BASE_URL,
+            withCredentials: true,
+            data: formLike
+        }
+
+        requestBackend(params)
+            .then(response => {
+                window.location.reload();
+
+            }).catch((e) => {
+                console.log("error" + e)
+            })
+
+    }
 
     return (
         <div className='post-card base-card'>
@@ -54,7 +115,19 @@ const PostCard = ({ postType, userActiveId }: Props) => {
             </div>
             <div className="post-card-bottom">
                 <div className="post-card-like">
-                    <AiFillLike color="blue" />
+
+                    {/* <AiFillLike color="blue" /> */}
+                    {postType?.likes.find((x) => x.id === userActiveId) !== undefined ? (
+                        <BsSuitHeartFill
+                            onClick={deleteLike}
+                            className="post-like-icon"
+                            size={15}
+                            color="red"
+                        />
+                    ) : (
+                        <BsSuitHeart onClick={insertLike} className="post-like-icon" size={15} />
+                    )}
+
                     <span>{postType?.likes.length}</span>
                 </div>
                 <div className="post-card-comment">
