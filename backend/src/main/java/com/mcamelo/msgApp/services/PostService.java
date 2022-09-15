@@ -1,6 +1,8 @@
 package com.mcamelo.msgApp.services;
 
-import com.mcamelo.msgApp.dtos.*;
+import com.mcamelo.msgApp.dtos.CommentRequest;
+import com.mcamelo.msgApp.dtos.LikeRequest;
+import com.mcamelo.msgApp.dtos.PostDTO;
 import com.mcamelo.msgApp.entities.Comment;
 import com.mcamelo.msgApp.entities.Post;
 import com.mcamelo.msgApp.entities.User;
@@ -9,9 +11,14 @@ import com.mcamelo.msgApp.repositories.PostRepository;
 import com.mcamelo.msgApp.repositories.UserRepository;
 import com.mcamelo.msgApp.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.ReadOnlyProperty;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +34,6 @@ public class PostService {
 
     @Autowired
     public CommentRepository commentRepository;
-
 
     @Transactional
     public List<PostDTO> getAllPosts(){
@@ -46,7 +52,7 @@ public class PostService {
                     p.getLikedUsers(),
                     p.getComments()
             );
-            PostDTO dto = new PostDTO(entity, p.getComments(), p.getLikedUsers());
+            final PostDTO dto = new PostDTO(entity, p.getComments(), p.getLikedUsers());
             postDTOList.add(dto);
         }
         return postDTOList;
@@ -122,5 +128,14 @@ public class PostService {
         post.setLikedUsers(userSet);
         post = postRepository.save(post);
         return new PostDTO(post);
+    }
+
+    public Flux<ServerSentEvent<List<PostDTO>>> streamPosts() {
+        return Flux.interval(Duration.ofSeconds(2))
+                .publishOn(Schedulers.boundedElastic())
+                .map(sequence -> ServerSentEvent.<List<PostDTO>>builder().id(String.valueOf(sequence))
+                        .event("post-list-event")
+                        .data(getAllPosts())
+                        .build());
     }
 }

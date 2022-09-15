@@ -10,26 +10,54 @@ import './styles.css';
 
 const ListsPosts = () => {
     const [listPost, setListPost] = useState<PostType[]>([]);
-
+    // const [listPost, setListPost] = useState<PostType[]>([]);
     const [userActiveId, setUserActiveId] = useState(0);
 
     useEffect(() => {
-        const numberId = getAuthData().userId
-        setUserActiveId(numberId);
-        const params: AxiosRequestConfig = {
-            method: 'GET',
-            url: "/post",
-            baseURL: BASE_URL,
-            withCredentials: true
-        }
+        // let url = BASE_URL + "/post/stream-flux";
+        // let url = BASE_URL + "/post/stream";
+        // const sse = new EventSource(url);
+        // post-list-event
+        // sse.onmessage = (e) => {
+        //     console.log(e.data);
+        // };
 
-        requestBackend(params)
-            .then(response => {
-                console.log(userActiveId);
-                setListPost(response.data);
-                //console.log(response.data);
-            })
+        let url = BASE_URL + "/post/stream";
+        const sse = new EventSource(url);
+        sse.addEventListener("post-list-event", (event) => {
+            const data = JSON.parse(event.data);
+            // console.log(event.data);
+            // console.log(data);
+            setListPost(data);
+            const numberId = getAuthData().userId
+            setUserActiveId(numberId);
+        });
+
+        sse.onerror = () => {
+            sse.close();
+        };
+        return () => {
+            sse.close();
+        };
     }, [setListPost, userActiveId]);
+
+    // useEffect(() => {
+    //     const numberId = getAuthData().userId
+    //     setUserActiveId(numberId);
+    //     const params: AxiosRequestConfig = {
+    //         method: 'GET',
+    //         url: "/post",
+    //         baseURL: BASE_URL,
+    //         withCredentials: true
+    //     }
+
+    //     requestBackend(params)
+    //         .then(response => {
+    //             // console.log(userActiveId);
+    //             setListPost(response.data);
+    //             //console.log(response.data);
+    //         })
+    // }, [setListPost, userActiveId]);
     return (
         <div className='home-container'>
 
