@@ -1,11 +1,10 @@
 package com.mcamelo.msgApp.services;
 
-import com.mcamelo.msgApp.dtos.CommentRequest;
-import com.mcamelo.msgApp.dtos.LikeRequest;
-import com.mcamelo.msgApp.dtos.PostDTO;
+import com.mcamelo.msgApp.dtos.*;
 import com.mcamelo.msgApp.entities.Comment;
 import com.mcamelo.msgApp.entities.Post;
 import com.mcamelo.msgApp.entities.User;
+import com.mcamelo.msgApp.entities.enums.NotificationsType;
 import com.mcamelo.msgApp.repositories.CommentRepository;
 import com.mcamelo.msgApp.repositories.PostRepository;
 import com.mcamelo.msgApp.repositories.UserRepository;
@@ -27,13 +26,16 @@ import java.util.Set;
 @Service
 public class PostService {
     @Autowired
-    public PostRepository postRepository;
+    private PostRepository postRepository;
 
     @Autowired
-    public UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public CommentRepository commentRepository;
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Transactional
     public List<PostDTO> getAllPosts(){
@@ -93,6 +95,14 @@ public class PostService {
         comment = commentRepository.save(comment);
         post.getComments().add(comment);
         post = postRepository.save(post);
+        notificationService.addNotification(
+                new NotificationDTO(null,
+                        "comment sended by "+authorComment.getName(),
+                        false,
+                        false,
+                        NotificationsType.COMMENT,
+                        new UserDTO(post.getAuthor()),
+                        new UserDTO(authorComment)));
         return new PostDTO(post);
     }
     @Transactional
@@ -113,10 +123,18 @@ public class PostService {
     @Transactional
     public PostDTO createLike(LikeRequest likeRequest){
         Post post = postRepository.getOne(likeRequest.getIdPost());
-        User authorLIke = userRepository.getOne(likeRequest.getUser().getId());
+        User authorLike = userRepository.getOne(likeRequest.getUser().getId());
         var listLikesUpdated = post.getLikedUsers();
-        listLikesUpdated.add(authorLIke);
+        listLikesUpdated.add(authorLike);
         post = postRepository.save(post);
+        notificationService.addNotification(
+                new NotificationDTO(null,
+                        "like sended by "+authorLike.getName(),
+                        false,
+                        false,
+                        NotificationsType.LIKE,
+                        new UserDTO(post.getAuthor()),
+                        new UserDTO(authorLike)));
         return new PostDTO(post);
     }
     @Transactional
@@ -130,11 +148,12 @@ public class PostService {
         return new PostDTO(post);
     }
 
+    @ReadOnlyProperty
     public Flux<ServerSentEvent<List<PostDTO>>> streamPosts() {
         return Flux.interval(Duration.ofSeconds(2))
                 .publishOn(Schedulers.boundedElastic())
                 .map(sequence -> ServerSentEvent.<List<PostDTO>>builder().id(String.valueOf(sequence))
-                        .event("post-list-event")
+                        .event("post-event")
                         .data(getAllPosts())
                         .build());
     }

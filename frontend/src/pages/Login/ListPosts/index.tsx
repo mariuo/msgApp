@@ -14,17 +14,9 @@ const ListsPosts = () => {
     const [userActiveId, setUserActiveId] = useState(0);
 
     useEffect(() => {
-        // let url = BASE_URL + "/post/stream-flux";
-        // let url = BASE_URL + "/post/stream";
-        // const sse = new EventSource(url);
-        // post-list-event
-        // sse.onmessage = (e) => {
-        //     console.log(e.data);
-        // };
-
         let url = BASE_URL + "/post/stream";
         const sse = new EventSource(url);
-        sse.addEventListener("post-list-event", (event) => {
+        sse.addEventListener("post-event", (event) => {
             const data = JSON.parse(event.data);
             // console.log(event.data);
             // console.log(data);
@@ -73,7 +65,7 @@ const ListsPosts = () => {
                             ))
 
                     ) : (
-                        <h1 style={{ marginTop: 50 }}>Loading...</h1>
+                        ''//<h1 style={{ marginTop: 50 }}>Loading...</h1>
                     )}
 
                 </div >

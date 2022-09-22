@@ -5,7 +5,6 @@ import com.mcamelo.msgApp.dtos.LikeRequest;
 import com.mcamelo.msgApp.dtos.PostDTO;
 import com.mcamelo.msgApp.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -64,6 +63,7 @@ public class PostController {
         return ResponseEntity.ok().body(postService.deleteLike(likeRequest));
     }
 
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping(path="/stream")
     public Flux<ServerSentEvent<List<PostDTO>>> streamPosts() {
         return postService.streamPosts();
