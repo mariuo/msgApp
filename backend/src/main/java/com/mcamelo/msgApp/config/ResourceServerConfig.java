@@ -30,9 +30,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private JwtTokenStore tokenStore;
 
-    private static final String[] PUBLIC = {"/actuator/**", "/h2-console/**", "/swagger-ui/**","/swagger-ui.html", "/api-docs"};
-    private static final String[] OPERATOR_OR_ADMIN = {"/products/**", "/categories/**"};
-    private static final String[] ADMIN = {"/users/**"};
+    private static final String[] PUBLIC = {"/actuator/**", "/h2-console/**", "/swagger-ui/**","/swagger-ui.html", "/api-docs", "/notification/stream/**"};
+//    private static final String[] OPERATOR_OR_ADMIN = {"/products/**", "/categories/**"};
+//    private static final String[] ADMIN = {"/users/**"};
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {

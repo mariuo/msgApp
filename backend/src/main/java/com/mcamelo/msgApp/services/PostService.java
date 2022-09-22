@@ -153,7 +153,7 @@ public class PostService {
         return Flux.interval(Duration.ofSeconds(2))
                 .publishOn(Schedulers.boundedElastic())
                 .map(sequence -> ServerSentEvent.<List<PostDTO>>builder().id(String.valueOf(sequence))
-                        .event("post-event")
+                        .event("sse-post")
                         .data(getAllPosts())
                         .build());
     }

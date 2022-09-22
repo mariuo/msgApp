@@ -35,8 +35,10 @@ const Navbar = () => {
         history.replace('/');
 
     }
+
+
     return (
-        <nav className='navbar navbar-expand-md navbar-dark bg-primary main-nav'>
+        <nav className='navbar navbar-expand navbar-dark bg-primary main-nav'>
             <div className='container-fluid'>
                 <Link to="/" className="nav-logo-text">
                     <h4>msgApp</h4>
@@ -46,7 +48,6 @@ const Navbar = () => {
             <div className="nav-login-logout">
                 {authContextData.authenticated ? (
                     <>
-
                         <span className="nav-username">{authContextData.tokenData?.user_name}</span>
                         <a href="#logout" onClick={handleLogoutClick}>
                             LOGOUT

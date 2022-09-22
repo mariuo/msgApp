@@ -1,10 +1,8 @@
-
-import { AxiosRequestConfig } from 'axios';
 import PostCard from 'components/PostCard';
 import PostCreateCard from 'components/PostCreateCard';
 import { useEffect, useState } from 'react';
 import { PostType } from 'types/postType';
-import { BASE_URL, requestBackend } from 'util/request';
+import { BASE_URL } from 'util/request';
 import { getAuthData } from 'util/storage';
 import './styles.css';
 
@@ -16,10 +14,8 @@ const ListsPosts = () => {
     useEffect(() => {
         let url = BASE_URL + "/post/stream";
         const sse = new EventSource(url);
-        sse.addEventListener("post-event", (event) => {
+        sse.addEventListener("sse-post", (event) => {
             const data = JSON.parse(event.data);
-            // console.log(event.data);
-            // console.log(data);
             setListPost(data);
             const numberId = getAuthData().userId
             setUserActiveId(numberId);
@@ -33,6 +29,27 @@ const ListsPosts = () => {
         };
     }, [setListPost, userActiveId]);
 
+    const [listNotify, setListNotify] = useState<Notification[]>([]);
+    useEffect(() => {
+        let url = BASE_URL + "/notification/stream/" + getAuthData().userId;
+        const sse2 = new EventSource(url);
+        sse2.addEventListener("sse-notify", (event) => {
+            // console.log(event.data);
+            const data = JSON.parse(event.data);
+            // console.log(data);
+            setListNotify(data);
+            // console.log(listNotify);
+            // const numberId = getAuthData().userId
+            // setUserActiveId(numberId);
+        });
+
+        sse2.onerror = () => {
+            sse2.close();
+        };
+        return () => {
+            sse2.close();
+        };
+    }, [setListNotify]);
     // useEffect(() => {
     //     const numberId = getAuthData().userId
     //     setUserActiveId(numberId);
@@ -52,6 +69,9 @@ const ListsPosts = () => {
     // }, [setListPost, userActiveId]);
     return (
         <div className='home-container'>
+            <div className='navbar notification'>
+                <span>Notifications {listNotify?.length}</span>
+            </div>
 
             <PostCreateCard userActiveId={userActiveId} />
 
