@@ -41,6 +41,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    color: #fff;
 }
 
 .nav-username {
@@ -63,7 +64,7 @@
 
 @media(min-width: 768px) {
     .nav-login-logout {
-        display: unset;
+        /* display: unset; */
         color: #fff;
         /* margin-right: 15px; */
     }
@@ -71,7 +72,7 @@
 
 @media(min-width: 992px) {
     .nav-login-logout {
-        display: unset;
+        /* display: unset; */
         color: #fff;
         margin-right: 40px;
     }

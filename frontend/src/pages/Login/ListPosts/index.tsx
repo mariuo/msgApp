@@ -7,9 +7,8 @@ import { getAuthData } from 'util/storage';
 import './styles.css';
 
 const ListsPosts = () => {
-    const [listPost, setListPost] = useState<PostType[]>([]);
-    // const [listPost, setListPost] = useState<PostType[]>([]);
     const [userActiveId, setUserActiveId] = useState(0);
+    const [listPost, setListPost] = useState<PostType[]>([]);
 
     useEffect(() => {
         let url = BASE_URL + "/post/stream";
@@ -29,27 +28,27 @@ const ListsPosts = () => {
         };
     }, [setListPost, userActiveId]);
 
-    const [listNotify, setListNotify] = useState<Notification[]>([]);
-    useEffect(() => {
-        let url = BASE_URL + "/notification/stream/" + getAuthData().userId;
-        const sse2 = new EventSource(url);
-        sse2.addEventListener("sse-notify", (event) => {
-            // console.log(event.data);
-            const data = JSON.parse(event.data);
-            // console.log(data);
-            setListNotify(data);
-            // console.log(listNotify);
-            // const numberId = getAuthData().userId
-            // setUserActiveId(numberId);
-        });
+    // const [listNotify, setListNotify] = useState<Notification[]>([]);
+    // useEffect(() => {
+    //     let url = BASE_URL + "/notification/stream/" + getAuthData().userId;
+    //     const sse2 = new EventSource(url);
+    //     sse2.addEventListener("sse-notify", (event) => {
+    //         // console.log(event.data);
+    //         const data = JSON.parse(event.data);
+    //         // console.log(data);
+    //         setListNotify(data);
+    //         // console.log(listNotify);
+    //         // const numberId = getAuthData().userId
+    //         // setUserActiveId(numberId);
+    //     });
 
-        sse2.onerror = () => {
-            sse2.close();
-        };
-        return () => {
-            sse2.close();
-        };
-    }, [setListNotify]);
+    //     sse2.onerror = () => {
+    //         sse2.close();
+    //     };
+    //     return () => {
+    //         sse2.close();
+    //     };
+    // }, [setListNotify]);
     // useEffect(() => {
     //     const numberId = getAuthData().userId
     //     setUserActiveId(numberId);
@@ -69,10 +68,9 @@ const ListsPosts = () => {
     // }, [setListPost, userActiveId]);
     return (
         <div className='home-container'>
-            <div className='navbar notification'>
+            {/* <div className='navbar notification'>
                 <span>Notifications {listNotify?.length}</span>
-            </div>
-
+            </div> */}
             <PostCreateCard userActiveId={userActiveId} />
 
             <div className='list-container'>
