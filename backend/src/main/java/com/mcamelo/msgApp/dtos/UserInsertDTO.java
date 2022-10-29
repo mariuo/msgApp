@@ -13,7 +13,7 @@ public class UserInsertDTO extends UserDTO {
     @Size(min = 3, max = 30, message = "Must has between 3 and 30 chars.")
     private String password;
 
-    UserInsertDTO(){
+    public UserInsertDTO(){
         super();
     }
     public String getPassword() {

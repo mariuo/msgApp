@@ -34,10 +34,6 @@ const PostCard = ({ postType, userActiveId }: Props) => {
     };
     const deleteLike = () => {
 
-        //const commResu = formData.comment;
-
-        //console.log(commResu)
-
         const formLike = {
             idPost: postType.id,
             user: {
