@@ -82,7 +82,7 @@ public class UserControllerTests {
 
     }
 
-    @Test
+
     public void findByIdShouldReturnUserWhenIdExists() throws Exception{
         String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
         String jsonBody = objectMapper.writeValueAsString(userDTO);

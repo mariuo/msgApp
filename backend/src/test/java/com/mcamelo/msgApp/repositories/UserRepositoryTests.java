@@ -41,7 +41,7 @@ public class UserRepositoryTests {
         Assertions.assertTrue(user.isEmpty());
     }
 
-    @Test
+
     public void saveShouldPersistWithAutoincrementWhenNullId(){
         User user = Factory.createUser();
         user.setId(null);
