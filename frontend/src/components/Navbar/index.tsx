@@ -37,26 +37,26 @@ const Navbar = () => {
 
     }
     const [listNotify, setListNotify] = useState<Notification[]>([]);
-    // useEffect(() => {
-    //     let url = BASE_URL + "/notification/stream/" + getAuthData().userId;
-    //     const sse2 = new EventSource(url);
-    //     sse2.addEventListener("sse-notify", (event) => {
-    //         // console.log(event.data);
-    //         const data = JSON.parse(event.data);
-    //         // console.log(data);
-    //         setListNotify(data);
-    //         // console.log(listNotify);
-    //         // const numberId = getAuthData().userId
-    //         // setUserActiveId(numberId);
-    //     });
+    useEffect(() => {
+        let url = BASE_URL + "/notification/stream/" + getAuthData().userId;
+        const sse2 = new EventSource(url);
+        sse2.addEventListener("sse-notify", (event) => {
+            // console.log(event.data);
+            const data = JSON.parse(event.data);
+            // console.log(data);
+            setListNotify(data);
+            // console.log(listNotify);
+            // const numberId = getAuthData().userId
+            // setUserActiveId(numberId);
+        });
 
-    //     sse2.onerror = () => {
-    //         sse2.close();
-    //     };
-    //     return () => {
-    //         sse2.close();
-    //     };
-    // }, [setListNotify]);
+        sse2.onerror = () => {
+            sse2.close();
+        };
+        return () => {
+            sse2.close();
+        };
+    }, [setListNotify]);
 
 
     return (

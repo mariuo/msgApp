@@ -22,6 +22,8 @@ public class UserController {
     @Autowired
     public UserService userService;
 
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<Page<UserDTO>> getAllUsers(Pageable pageable){
         Page<UserDTO> users = userService.getAllUsers(pageable);

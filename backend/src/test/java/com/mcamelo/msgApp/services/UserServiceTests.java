@@ -58,7 +58,7 @@ public class UserServiceTests {
         user = Factory.createUser();
         userInsertDTO = Factory.createUserInsertDTO();
         page = new PageImpl<>(List.of(user));
-        role = Factory.createRole();
+        role = Factory.createRoleAdmin();
 
         Mockito.when(userRepository.findById(existindId)).thenReturn(Optional.of(user));
         Mockito.when(userRepository.findById(nonExistingId)).thenReturn(Optional.empty());

@@ -21,13 +21,13 @@ public class PostController {
     public PostService postService;
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping
-    public ResponseEntity<List<PostDTO>> getAllPosts(){
+    public ResponseEntity<List<PostDTO>> getAll(){
         return ResponseEntity.ok().body(postService.getAllPosts());
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/{id}")
-    public ResponseEntity<PostDTO> getAllPosts(@PathVariable Long id){
+    public ResponseEntity<PostDTO> getPostById(@PathVariable Long id){
 
         return ResponseEntity.ok().body(postService.getById(id));
     }
