@@ -1,31 +1,30 @@
 # msgApp
 
-## Ambiente
-
+## Environment
 ---
 ### Docker Compose
-Executar o comando abaixo a partir da pasta *./docker/*
+- Execute the command in the file *./docker/*
 
-    docker-compose up -d
+    ``` docker-compose up -d ```
 
-Ou levantar os serviços através do plugin: https://plugins.jetbrains.com/plugin/7724-docker
+Or you can upload the service by plugin: https://plugins.jetbrains.com/plugin/7724-docker
 
 
 #### [pgAdmin (PostgreSQL)](https://www.pgadmin.org)
-- Abrir interface web: http://localhost:5050/
+- Open interface web: http://localhost:5050/
 - User: admin@admin.com
 - Senha: root
 
-Configurações iniciais:
-Após login no pgAdmin, seguir os passos abaixo:
+Starter configs:
+After login in pgAdmin:
 
-- Criar base de dados manualmente:
-  - Abrir o pgAdmin
-  - Abrir a aba SQL e executar o comando abaixo:
+- Create database:
+  - Open pgAdmin
+  - Open the window SQL and execute:
     ```sql
     create database msgAppdb;
     ```
-- Abrir Servers > Create > Server
+- Open Servers > Create > Server
   - General:
     - Name: msgAppdb
   - Connection:
@@ -37,6 +36,18 @@ Após login no pgAdmin, seguir os passos abaixo:
 
 ---
 
-## Subir a aplicação
+# Start the application
+## BACKEND
+- with Maven and Java
+- Execute command:
+``` mvn clean package ```
 
+-Go to folder "target"
+-Execute command:
+``` java -jar msgApp-0.0.1-SNAPSHOT.jar ```
 
+## FRONTEND
+
+-Go to folder: FRONTEND
+
+``` yarn start ```
