@@ -1,7 +1,4 @@
 # msgApp
-![output](https://user-images.githubusercontent.com/30843415/200047233-117d2449-17ca-4ebd-b889-873f20c527d4.gif)
-![Screenshot from 2022-11-04 14-24-01](https://user-images.githubusercontent.com/30843415/200048354-ffbb2722-427c-4ca2-a71e-982bc2cc90a4.png)
-
 I used the concept of MVC to make this project. With the Java technology and Springboot framework I was able to create the backend.
 Using postgres database, and JPA/Hibernate I could create the persistance model and DB.
 With Spring-security I could create a environment more security with OAuth and JWT.
@@ -10,6 +7,10 @@ For document the end-points I used Swagger lib.
 And Finally I could try the Testcontainer for the first time, making the Integraty Tests.
 
 Frontend I used Javascript, typescript and React.
+
+![output](https://user-images.githubusercontent.com/30843415/200047233-117d2449-17ca-4ebd-b889-873f20c527d4.gif)
+![Screenshot from 2022-11-04 14-24-01](https://user-images.githubusercontent.com/30843415/200048354-ffbb2722-427c-4ca2-a71e-982bc2cc90a4.png)
+
 
 ## Environment
 ---
