@@ -1,4 +1,5 @@
 # msgApp
+The purpose of the application is the study and practice of methodologies and tools.
 I used the concept of MVC to make this project. With the Java technology and Springboot framework I was able to create the backend.
 Using postgres database, and JPA/Hibernate I could create the persistance model and DB.
 With Spring-security I could create a environment more security with OAuth and JWT.
@@ -63,3 +64,5 @@ After login in pgAdmin:
 -Go to folder: FRONTEND
 
 ``` yarn start ```
+###
+Idea reference by @gurkanucar
